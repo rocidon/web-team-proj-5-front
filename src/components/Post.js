@@ -13,3 +13,5 @@ function Post({ creator, title, text, likecount, timestamp }) {
 }
 
 export default Post;
+
+//수정
