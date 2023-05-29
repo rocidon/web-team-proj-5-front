@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
-import Post from "./components/Post";
-import Bulletin from "./components/Bulletin";
 import Detail from "./pages/Detail";
 import My from "./pages/My";
 import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Location from "./pages/Location";
 import "./css/App.css";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Navbar, Nav, Container } from 'react-bootstrap';
 
 function App() {
@@ -27,10 +24,10 @@ function App() {
       <Nav defaultActiveKey="/main" className="flex-column">
         <Nav.Link href="/main">home</Nav.Link>
         <Nav.Link eventKey="link-1">popular</Nav.Link>
+        <hr />
         <Nav.Link eventKey="link-2">topics</Nav.Link>
         <hr />
-        <br />
-        <Nav.Link href="/location">찾아오시는 길</Nav.Link>
+        <Nav.Link href="/location">위치</Nav.Link>
       </Nav>
       <div className="section">
         <Routes>
@@ -42,6 +39,7 @@ function App() {
           <Route path="/location" element={<Location />} />
         </Routes>
       </div>
+
     </div>
   );
 }
