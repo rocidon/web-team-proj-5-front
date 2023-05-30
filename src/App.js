@@ -1,11 +1,3 @@
-<<<<<<< Updated upstream
-import { useEffect, useState } from "react";
-import Post from "./components/Post";
-
-function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [datas, setDatas] = useState([]);
-=======
 import Detail from "./pages/Detail";
 import My from "./pages/My";
 import Main from "./pages/Main";
@@ -21,7 +13,6 @@ function App() {
   const [datas, setDatas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [clickedPost, setClickedPost] = useState("");
->>>>>>> Stashed changes
   const getDatas = async () => {
     const dataJson = await (await fetch("http://localhost:8080/posts")).json();
     //console.log(dataJson);
@@ -31,29 +22,6 @@ function App() {
   useEffect(() => {
     getDatas();
   }, []);
-<<<<<<< Updated upstream
-  return (
-    <div>
-      {isLoading ? (
-        <div>
-          <h1>Loading...</h1>
-        </div>
-      ) : (
-        <div>
-          {datas.map((data) => (
-            <Post
-              key={data.no}
-              creator={data.creator}
-              title={data.title}
-              text={data.text}
-              likecount={data.likecount}
-              timestamp={data.timestamp}
-            />
-          ))}
-        </div>
-      )}
-=======
-
   return (
     <div>
       <Navbar bg="primary" variant="dark">
@@ -116,7 +84,6 @@ function App() {
           <Route path="/location" element={<Location />} />
         </Routes>
       </div>
->>>>>>> Stashed changes
     </div>
   );
 }
