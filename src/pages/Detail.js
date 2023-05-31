@@ -5,9 +5,13 @@ import "../css/Detail.css";
 import { useState, useEffect } from "react";
 
 function Detail({ clickedPost, setClickedPost }) {
+  // /comments에서 fetch한 json을 저장하는 Array
   const [comments, setComments] = useState([]);
+  // fetch가 완료되었는지를 나타내는 boolean
   const [isLoading, setIsLoading] = useState(true);
+  // 가져온 모든 comments에서 해당 글에 맞는 댓글들을 선별하여 저장하는 Array
   const commentList = [];
+
   const getComments = async () => {
     const dataJson = await (
       await fetch(`http://localhost:8080/comments`)

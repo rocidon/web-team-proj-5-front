@@ -2,8 +2,11 @@ import Bulletin from "../components/Bulletin";
 import { useState, useEffect } from "react";
 
 function Popular({ setClickedPost }) {
+  // /populars에서 fetch한 json 담아두는 Array
   const [datas, setDatas] = useState([]);
+  // fetch가 완료 되었는지를 나타내는 boolean
   const [isLoading, setIsLoading] = useState(true);
+
   const getDatas = async () => {
     const dataJson = await (
       await fetch("http://localhost:8080/populars")
@@ -15,6 +18,7 @@ function Popular({ setClickedPost }) {
   useEffect(() => {
     getDatas();
   }, []);
+
   return (
     <div>
       {isLoading ? (

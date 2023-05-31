@@ -10,9 +10,13 @@ import { useState, useEffect } from "react";
 import Popular from "./pages/Popular";
 
 function App() {
+  // /posts에서 fetch한 json을 저장하는 Array
   const [datas, setDatas] = useState([]);
+  // fetch가 완료 되었는지 나타내는 boolean
   const [isLoading, setIsLoading] = useState(true);
+  // props 전달해 줄 클릭한 포스트
   const [clickedPost, setClickedPost] = useState("");
+
   const getDatas = async () => {
     const dataJson = await (await fetch("http://localhost:8080/posts")).json();
     //console.log(dataJson);
@@ -22,6 +26,7 @@ function App() {
   useEffect(() => {
     getDatas();
   }, []);
+
   return (
     <div>
       <Navbar bg="primary" variant="dark">
