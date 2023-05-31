@@ -1,12 +1,17 @@
-import "../css/Comment.css"
+import "../css/Comment.css";
+import convertTime from "../time";
 
-function Comment() {
-    return (<div className="comment">
-        <h4>작성자</h4>
-        <div style={{ color: "gray", fontSize: "10px" }}>작성시간</div>
-        <div>댓글내용</div>
-        <div style={{ fontSize: "14px" }}> Like🤍 </div>
-        <div style={{ color: "gray", fontSize: "14px" }}> + Reply</div>
-    </div>)
+function Comment({ data }) {
+  return (
+    <div className="comment">
+      <h4>{data.creator}</h4>
+      <div style={{ color: "gray", fontSize: "10px" }}>
+        {convertTime(data.timestamp)}
+      </div>
+      <div>{data.text}</div>
+      <div style={{ fontSize: "14px" }}> Like🤍 </div>
+      <div style={{ color: "gray", fontSize: "14px" }}> + Reply</div>
+    </div>
+  );
 }
 export default Comment;
