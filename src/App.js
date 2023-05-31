@@ -57,7 +57,9 @@ function App() {
               <Main
                 datas={datas}
                 isLoading={isLoading}
+                setIsLoading={setIsLoading}
                 setClickedPost={setClickedPost}
+                getDatas={getDatas}
               />
             }
           />
@@ -67,7 +69,9 @@ function App() {
               <Main
                 datas={datas}
                 isLoading={isLoading}
+                setIsLoading={setIsLoading}
                 setClickedPost={setClickedPost}
+                getDatas={getDatas}
               />
             }
           />
