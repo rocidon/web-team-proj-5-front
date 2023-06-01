@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Bulletin from "../components/Bulletin";
 import axios from "axios";
+import Posts from "../components/Posts";
 
 function Main({ datas, isLoading, setIsLoading, setClickedPost, getDatas }) {
   const [title, setTitle] = useState("");
@@ -12,7 +12,7 @@ function Main({ datas, isLoading, setIsLoading, setClickedPost, getDatas }) {
         .post("http://localhost:8080/posts", {
           params: {
             post_creator: "정재승작성연습",
-            post_uid: "ffff7777ffff7777",
+            post_email: "ffff7777ffff7777",
             post_title: title,
             post_text: text,
           },
@@ -72,7 +72,7 @@ function Main({ datas, isLoading, setIsLoading, setClickedPost, getDatas }) {
       ) : (
         datas.map((data) => {
           return (
-            <Bulletin
+            <Posts
               key={data.uuid}
               data={data}
               setClickedPost={setClickedPost}
