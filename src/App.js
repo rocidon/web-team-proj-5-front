@@ -18,7 +18,9 @@ function App() {
   const [clickedPost, setClickedPost] = useState("");
 
   const getDatas = async () => {
-    const dataJson = await (await fetch("http://localhost:8080/posts")).json();
+    const dataJson = await (
+      await fetch("http://localhost:8080/posts/all")
+    ).json();
     //console.log(dataJson);
     setDatas(dataJson);
     setIsLoading(false);
@@ -76,11 +78,12 @@ function App() {
             }
           />
           <Route
-            path="/detail"
+            path={`/detail`}
             element={
               <Detail
                 clickedPost={clickedPost}
-                setClickedPost={setClickedPost}
+                setIsLoading={setIsLoading}
+                getDatas={getDatas}
               />
             }
           />
