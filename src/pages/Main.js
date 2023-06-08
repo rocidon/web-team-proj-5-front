@@ -11,8 +11,8 @@ function Main({ datas, isLoading, setIsLoading, setClickedPost, getDatas }) {
       await axios
         .post("http://localhost:8080/posts", {
           params: {
-            post_creator: "정재승작성연습",
-            post_email: "ffff7777ffff7777",
+            post_creator: localStorage.getItem("username"),
+            post_email: localStorage.getItem("email"),
             post_title: title,
             post_text: text,
           },

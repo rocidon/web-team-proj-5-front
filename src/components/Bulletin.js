@@ -4,7 +4,14 @@ import convertTime from "../time";
 import axios from "axios";
 import { useState } from "react";
 
-function Bulletin({ data, setIsLoading, getDatas, setIsPostLoading, getPost }) {
+function Bulletin({
+  data,
+  setIsLoading,
+  getDatas,
+  setIsPostLoading,
+  getPost,
+  isPostMine,
+}) {
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateText, setUpdateText] = useState("");
 
@@ -74,11 +81,15 @@ function Bulletin({ data, setIsLoading, getDatas, setIsPostLoading, getPost }) {
         <span>
           {data.creator} / {convertTime(data.timestamp)}
         </span>
-        <button onClick={onClick}>삭제하기</button>
-        <button onClick={onUpdateToggle}>
-          {isUpdating ? "취소하기" : "수정하기"}
-        </button>
-        {isUpdating && <button onClick={onUpdateComplete}>수정완료</button>}
+        {isPostMine && (
+          <>
+            <button onClick={onClick}>삭제하기</button>
+            <button onClick={onUpdateToggle}>
+              {isUpdating ? "취소하기" : "수정하기"}
+            </button>
+            {isUpdating && <button onClick={onUpdateComplete}>수정완료</button>}
+          </>
+        )}
       </div>
       <div>
         {isUpdating ? (

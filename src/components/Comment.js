@@ -1,11 +1,18 @@
 import "../css/Comment.css";
 import convertTime from "../time";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Comment({ data, commentUUID, setIsCommentLoading, getComments }) {
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isCommentMine, setIsCommentMine] = useState(false);
   const [updateText, setUpdateText] = useState("");
+
+  useEffect(() => {
+    if (data.email == localStorage.getItem("email")) {
+      setIsCommentMine(true);
+    }
+  }, []);
 
   const onUpdateToggle = () => {
     if (!isUpdating) {
@@ -67,11 +74,15 @@ function Comment({ data, commentUUID, setIsCommentLoading, getComments }) {
       <h4>{data.creator}</h4>
       <div style={{ color: "gray", fontSize: "10px" }}>
         {convertTime(data.timestamp)}
-        <button onClick={onClick}>삭제하기</button>
-        <button onClick={onUpdateToggle}>
-          {isUpdating ? "취소하기" : "수정하기"}
-        </button>
-        {isUpdating && <button onClick={onUpdateComplete}>수정완료</button>}
+        {isCommentMine && (
+          <>
+            <button onClick={onClick}>삭제하기</button>
+            <button onClick={onUpdateToggle}>
+              {isUpdating ? "취소하기" : "수정하기"}
+            </button>
+            {isUpdating && <button onClick={onUpdateComplete}>수정완료</button>}
+          </>
+        )}
       </div>
       <div>
         {isUpdating ? (
@@ -84,7 +95,7 @@ function Comment({ data, commentUUID, setIsCommentLoading, getComments }) {
           <p>{data.text}</p>
         )}
       </div>
-      <div style={{ fontSize: "14px" }}> Like🤍 </div>
+      <div style={{ fontSize: "14px" }}> Like🤍 0</div>
       <div style={{ color: "gray", fontSize: "14px" }}> + Reply</div>
     </div>
   );

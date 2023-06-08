@@ -9,7 +9,7 @@ function Popular({ setClickedPost }) {
 
   const getDatas = async () => {
     const dataJson = await (
-      await fetch("http://localhost:8080/populars")
+      await fetch("http://localhost:8080/posts/all/populars")
     ).json();
     //console.log(dataJson);
     setDatas(dataJson);

@@ -11,6 +11,7 @@ function Detail({ clickedPost, setIsLoading, getDatas }) {
   const [isPostLoading, setIsPostLoading] = useState(true);
   const [comments, setComments] = useState([]);
   const [isCommentLoading, setIsCommentLoading] = useState(true);
+  const [isPostMine, setIsPostMine] = useState(false);
   const commentList = [];
 
   const getPost = async () => {
@@ -18,6 +19,9 @@ function Detail({ clickedPost, setIsLoading, getDatas }) {
       await fetch(`http://localhost:8080/posts?uuid=${clickedPost.uuid}`)
     ).json();
     setPost(dataJson);
+    if (dataJson[0].email == localStorage.getItem("email")) {
+      setIsPostMine(true);
+    }
     setIsPostLoading(false);
   };
   useEffect(() => {
@@ -47,14 +51,13 @@ function Detail({ clickedPost, setIsLoading, getDatas }) {
         .post("http://localhost:8080/comments", {
           params: {
             post_uuid: clickedPost.uuid,
-            comment_creator: "정재승댓글작성연습",
-            comment_email: "zzzz9999zzzz9999zzzz",
+            comment_creator: localStorage.getItem("username"),
+            comment_email: localStorage.getItem("email"),
             comment_text: text,
           },
         })
         .then((res) => {
-          console.log(res.data);
-          //alert("댓글 작성이 완료되었습니다.");
+          alert("댓글 작성이 완료되었습니다.");
         })
         .catch(function (err) {
           console.log(err);
@@ -89,6 +92,7 @@ function Detail({ clickedPost, setIsLoading, getDatas }) {
             getDatas={getDatas}
             setIsPostLoading={setIsPostLoading}
             getPost={getPost}
+            isPostMine={isPostMine}
           />
         </>
       )}
