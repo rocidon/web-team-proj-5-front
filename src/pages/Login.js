@@ -6,9 +6,7 @@ import Login_Api from "../components/Login_Api";
 function Login() {
     const [modal, setModal] = useState(true); //X 누르면 로그인창 닫기위한 버튼
     const navigate = useNavigate(); //main페이지로 이동
-    const socialLoginClick = ()=>{
-        Login_Api();
-    };
+
     return (<div>
         {
             (modal == true) ?
@@ -52,7 +50,7 @@ function LoginModal(props) {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button onClick={socialLoginClick}>네이버</Button>
+                    <Login_Api/>
                     <Button variant="secondary">로그인</Button>
                     <Button variant="primary">회원가입</Button>
                 </Modal.Footer>
