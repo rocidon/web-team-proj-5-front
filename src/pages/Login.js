@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal, Button, Form, CloseButton } from "react-bootstrap";
+import Login_Api from "../components/Login_Api";
 function Login({ setIsLoggedIn }) {
   // 정재승 개발 시작라인----------------------------------
   const [loginSignin, setLoginSignin] = useState(true);
@@ -144,6 +145,7 @@ function Login({ setIsLoggedIn }) {
             </Modal.Body>
 
             <Modal.Footer>
+              <Login_Api></Login_Api>
               {loginSignin ? (
                 <Button variant="primary" onClick={onLoginBtnClick}>
                   로그인

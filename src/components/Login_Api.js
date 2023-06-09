@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import axios from 'axios'
 
-const Login_Api = ({ setGetToken, setUserInfo }) => {
+const Login_Api = () => {
       
   
 	const { naver } = window
@@ -21,7 +21,7 @@ const Login_Api = ({ setGetToken, setUserInfo }) => {
       naverLogin.getLoginStatus(async function (status) {
 			if (status) {
 				const userid = naverLogin.user.getEmail() //네이버로부터 사용자의 이메일을 받아옴
-				//localStorage.setItem('email', userid)
+				localStorage.setItem('email', userid)
 				count = await sendDataToBackend(userid) //이메일과 일치하는 계정정보여부를 판별
 			}
 		})     
@@ -34,7 +34,6 @@ const Login_Api = ({ setGetToken, setUserInfo }) => {
       	const getToken = () => {
 		const token = window.location.href.split('=')[1].split('&')[0]
 		localStorage.setItem('access_token', token)
-		setGetToken(token)
 		console.log(token);
 	}
 
