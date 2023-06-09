@@ -1,13 +1,16 @@
 import { Nav, DropdownButton, Dropdown } from "react-bootstrap";
 import Comment from "../components/Comment";
+import { useNavigate } from "react-router-dom";
 
 // 현재 My 접속하면 오류납니다! (<Comment /> component에 props 전달해주지 않아서..)
 // 수정할 예정 입니다! 23.05.31. 정재승-
 
 function My({ setIsLoggedIn }) {
+  const navigate = useNavigate();
   const onLogoutBtnClick = () => {
     localStorage.clear();
     setIsLoggedIn(false);
+    navigate("/main");
   };
   return (
     <div>
