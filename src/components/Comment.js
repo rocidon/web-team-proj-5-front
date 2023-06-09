@@ -4,6 +4,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 function Comment({ data, commentUUID, setIsCommentLoading, getComments }) {
+  const [isLiked, setIsLiked] = useState(0);
+  const [likecount, setLikecount] = useState(0);
   const [isUpdating, setIsUpdating] = useState(false);
   const [isCommentMine, setIsCommentMine] = useState(false);
   const [updateText, setUpdateText] = useState("");
@@ -12,7 +14,93 @@ function Comment({ data, commentUUID, setIsCommentLoading, getComments }) {
     if (data.email == localStorage.getItem("email")) {
       setIsCommentMine(true);
     }
+    getIsLiked();
+    getLikeCount();
   }, []);
+
+  const getIsLiked = async () => {
+    try {
+      await axios
+        .get("http://localhost:8080/comments/likelist/email", {
+          params: {
+            comments_uuid2: data.uuid2,
+            comments_email: localStorage.getItem("email"),
+          },
+        })
+        .then((res) => {
+          console.log(res.data[0].result);
+          if (res.data[0].result === 0) {
+            setIsLiked(0);
+          } else {
+            setIsLiked(1);
+          }
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const getLikeCount = async () => {
+    try {
+      await axios
+        .get("http://localhost:8080/comments/likelist/count", {
+          params: {
+            comments_uuid2: data.uuid2,
+          },
+        })
+        .then((res) => {
+          console.log("누른개수" + res.data[0].result);
+          setLikecount(res.data[0].result);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    } catch {}
+  };
+
+  const onLikeBtnClick = async () => {
+    if (isLiked) {
+      // 좋아요 누른 상태에서 버튼 클릭
+      try {
+        await axios
+          .post("http://localhost:8080/likelist/delete/comments", {
+            params: {
+              comments_uuid2: data.uuid2,
+              comments_email: localStorage.getItem("email"),
+            },
+          })
+          .then((res) => {
+            console.log(res.data);
+            setIsLiked(0);
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
+      } catch {}
+      await getLikeCount();
+    } else {
+      // 좋아요 안누른 상태에서 버튼 클릭
+      try {
+        await axios
+          .post("http://localhost:8080/likelist/comments", {
+            params: {
+              comments_uuid2: data.uuid2,
+              comments_eamil: localStorage.getItem("email"),
+            },
+          })
+          .then((res) => {
+            console.log(res.data);
+            setIsLiked(1);
+          })
+          .catch(function (err) {
+            console.log(err);
+          });
+      } catch {}
+      await getLikeCount();
+    }
+  };
 
   const onUpdateToggle = () => {
     if (!isUpdating) {
@@ -71,7 +159,7 @@ function Comment({ data, commentUUID, setIsCommentLoading, getComments }) {
   };
   return (
     <div className="comment">
-      <h4>{data.creator}</h4>
+      <h4>Re: {data.creator}</h4>
       <div style={{ color: "gray", fontSize: "10px" }}>
         {convertTime(data.timestamp)}
         {isCommentMine && (
@@ -95,8 +183,12 @@ function Comment({ data, commentUUID, setIsCommentLoading, getComments }) {
           <p>{data.text}</p>
         )}
       </div>
-      <div style={{ fontSize: "14px" }}> Like🤍 0</div>
-      <div style={{ color: "gray", fontSize: "14px" }}> + Reply</div>
+      <div style={{ fontSize: "14px" }}>
+        <span onClick={onLikeBtnClick}>
+          {isLiked ? "Like❤️ " : "Like🤍 "}
+          {likecount}
+        </span>
+      </div>
     </div>
   );
 }
