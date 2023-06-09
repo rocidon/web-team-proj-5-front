@@ -13,7 +13,7 @@ const Login_Api = ({ setGetToken, setUserInfo }) => {
 		const naverLogin = new naver.LoginWithNaverId({
 			clientId: NAVER_CLIENT_ID,
 			callbackUrl: NAVER_CALLBACK_URL,          
-			isPopup: false,
+			isPopup: true,
 			loginButton: { color: 'green', type: 3, height: 58 },
 			callbackHandle: true,
 		})
@@ -22,6 +22,8 @@ const Login_Api = ({ setGetToken, setUserInfo }) => {
 			if (status) {
 				const userid = naverLogin.user.getEmail() //네이버로부터 사용자의 이메일을 받아옴
 				count = await sendDataToBackend(userid) //이메일과 일치하는 계정정보여부를 판별
+				console.log(userid);
+				console.log(count);
 				if(count == 1){
 					//기존 계정으로 실행
 				}
