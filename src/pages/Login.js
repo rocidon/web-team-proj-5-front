@@ -87,87 +87,75 @@ function Login({ setIsLoggedIn }) {
   return (
     <>
       <div>
-        <LoginModal />
-      </div>
-      <div>
-        <div>
-          <input
-            onChange={onEmailChange}
-            value={email}
-            type="text"
-            placeholder="이메일"
-          />
-          <input
-            onChange={onPwChange}
-            value={pw}
-            type="password"
-            placeholder="비밀번호"
-          />
+        <div
+          className="modal show"
+          style={{ display: "block", position: "initial" }}
+        >
+          <Modal.Dialog>
+            <Modal.Header>
+              <Modal.Title>{loginSignin ? "로그인" : "회원가입"}</Modal.Title>
+            </Modal.Header>
 
-          {!loginSignin && (
-            <>
-              <input
-                onChange={onPw2Change}
-                value={pw2}
+            <Modal.Body>
+              <Form.Label htmlFor="inputPassword5">Email</Form.Label>
+              <Form.Control
+                type="id"
+                id="inputid5"
+                aria-describedby="idHelpBlock"
+                value={email}
+                onChange={onEmailChange}
+              />
+
+              <Form.Label htmlFor="inputPassword5">Password</Form.Label>
+              <Form.Control
                 type="password"
-                placeholder="비밀번호 확인"
+                id="inputPassword5"
+                aria-describedby="passwordHelpBlock"
+                value={pw}
+                onChange={onPwChange}
               />
-              <input
-                onChange={onUsernameChange}
-                value={username}
-                type="text"
-                placeholder="닉네임"
-                maxLength="10"
-              />
-            </>
-          )}
+              <Form.Text id="passwordHelpBlock" muted></Form.Text>
+              {!loginSignin && (
+                <>
+                  <Form.Label htmlFor="inputPassword5">
+                    Password Confirm
+                  </Form.Label>
+                  <Form.Control
+                    type="password"
+                    id="inputPassword5"
+                    aria-describedby="passwordHelpBlock"
+                    value={pw2}
+                    onChange={onPw2Change}
+                  />
+                  <Form.Text id="passwordHelpBlock" muted></Form.Text>
+                  <Form.Label htmlFor="inputPassword5">Username</Form.Label>
+                  <Form.Control
+                    type="id"
+                    id="inputid5"
+                    aria-describedby="idHelpBlock"
+                    value={username}
+                    onChange={onUsernameChange}
+                  />
+                </>
+              )}
+              <p onClick={onToggleClick}>
+                {loginSignin ? "아이디가 없으신가요?" : "로그인 하실건가요?"}
+              </p>
+            </Modal.Body>
+
+            <Modal.Footer>
+              {loginSignin ? (
+                <Button variant="primary" onClick={onLoginBtnClick}>
+                  로그인
+                </Button>
+              ) : (
+                <Button variant="primary" onClick={onSigninBtnClick}>
+                  회원가입
+                </Button>
+              )}
+            </Modal.Footer>
+          </Modal.Dialog>
         </div>
-        <p onClick={onToggleClick}>
-          {loginSignin ? "아이디가 없으신가요?" : "로그인 하실건가요?"}
-        </p>
-        {loginSignin ? (
-          <button onClick={onLoginBtnClick}>로그인</button>
-        ) : (
-          <button onClick={onSigninBtnClick}>회원가입</button>
-        )}
-      </div>
-    </>
-  );
-}
-function LoginModal(props) {
-  return (
-    <>
-      <div
-        className="modal show"
-        style={{ display: "block", position: "initial" }}
-      >
-        <Modal.Dialog>
-          <Modal.Header>
-            <Modal.Title>로그인</Modal.Title>
-          </Modal.Header>
-
-          <Modal.Body>
-            <Form.Label htmlFor="inputPassword5">ID</Form.Label>
-            <Form.Control
-              type="id"
-              id="inputid5"
-              aria-describedby="idHelpBlock"
-            />
-
-            <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-            <Form.Control
-              type="password"
-              id="inputPassword5"
-              aria-describedby="passwordHelpBlock"
-            />
-            <Form.Text id="passwordHelpBlock" muted></Form.Text>
-          </Modal.Body>
-
-          <Modal.Footer>
-            <Button variant="secondary">로그인</Button>
-            <Button variant="primary">회원가입</Button>
-          </Modal.Footer>
-        </Modal.Dialog>
       </div>
     </>
   );
