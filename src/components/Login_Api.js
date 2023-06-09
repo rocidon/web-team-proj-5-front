@@ -23,24 +23,26 @@ const Login_Api = () => {
 				const userid = naverLogin.user.getEmail() //네이버로부터 사용자의 이메일을 받아옴
 				localStorage.setItem('email', userid)
 				count = await sendDataToBackend(userid) //이메일과 일치하는 계정정보여부를 판별
+				//console.log(count)
 			}
 		})     
 	}
    
-	    const userAccessToken = () => {
-		    window.location.href.includes('access_token') && getToken()
-	}
+	//     const userAccessToken = () => {
+	// 	    window.location.href.includes('access_token') && getToken()
+	// }
         
-      	const getToken = () => {
-		const token = window.location.href.split('=')[1].split('&')[0]
-		localStorage.setItem('access_token', token)
-		console.log(token);
-	}
+    //   	const getToken = () => {
+	// 	const token = window.location.href.split('=')[1].split('&')[0]
+	// 	localStorage.setItem('access_token', token)
+	// 	console.log(token);
+	// }
 
 	const sendDataToBackend = async (data) => { //네이버로 부터 전달 받은 데이터 서버로 전송
 		try{
-			const response = await axios.post('/countData', {data})//서버로 전달
-			const result = response.data.result; //받은 결과 값
+			const response = await axios.post('http:localhost:8080/countData', {data})//서버로 전달
+			const result = response.data.result[0].result; //받은 결과 값
+			
 			return result; //결과 값 반환
 		}
 		catch(error){
@@ -49,7 +51,7 @@ const Login_Api = () => {
 	}
 	useEffect(() => {
 		initializeNaverLogin()
-		userAccessToken()		
+		//userAccessToken()		
 	}, [])
 
 
