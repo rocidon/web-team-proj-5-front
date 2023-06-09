@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Modal, Button, Form, CloseButton } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
+import styles from "../css/Login.module.css";
 function Login({ setIsLoggedIn }) {
   // 정재승 개발 시작라인----------------------------------
   const [loginSignin, setLoginSignin] = useState(true);
@@ -8,6 +8,7 @@ function Login({ setIsLoggedIn }) {
   const [pw, setPw] = useState("");
   const [pw2, setPw2] = useState("");
   const [username, setUsername] = useState("");
+  const [errorCode, setErrorCode] = useState("");
 
   const onEmailChange = ({ target: { value } }) => {
     setEmail(value);
@@ -24,6 +25,7 @@ function Login({ setIsLoggedIn }) {
 
   const onToggleClick = () => {
     setLoginSignin((prev) => !prev);
+    setErrorCode("");
   };
 
   const onLoginBtnClick = () => {
@@ -51,7 +53,7 @@ function Login({ setIsLoggedIn }) {
           localStorage.setItem("username", username[0].username);
           setIsLoggedIn(true);
         } else {
-          alert(json.isLogin);
+          setErrorCode(json.isLogin);
         }
       });
   };
@@ -79,7 +81,7 @@ function Login({ setIsLoggedIn }) {
           localStorage.setItem("username", username);
           setIsLoggedIn(true);
         } else {
-          alert(json.isSuccess);
+          setErrorCode(json.isSuccess);
         }
       });
   };
@@ -135,12 +137,16 @@ function Login({ setIsLoggedIn }) {
                     aria-describedby="idHelpBlock"
                     value={username}
                     onChange={onUsernameChange}
+                    maxLength={10}
                   />
                 </>
               )}
-              <p onClick={onToggleClick}>
-                {loginSignin ? "아이디가 없으신가요?" : "로그인 하실건가요?"}
-              </p>
+              <div className={styles.paragraphZone}>
+                <p onClick={onToggleClick}>
+                  {loginSignin ? "아이디가 없으신가요?" : "로그인 하실건가요?"}
+                </p>
+                <p>{errorCode}</p>
+              </div>
             </Modal.Body>
 
             <Modal.Footer>
