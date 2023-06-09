@@ -40,7 +40,7 @@ const Login_Api = () => {
 
 	const sendDataToBackend = async (data) => { //네이버로 부터 전달 받은 데이터 서버로 전송
 		try{
-			const response = await axios.post('http:localhost:8080/countData', {data})//서버로 전달
+			const response = await axios.post('http://localhost:8080/countData', {data})//서버로 전달
 			const result = response.data.result[0].result; //받은 결과 값
 			
 			return result; //결과 값 반환
