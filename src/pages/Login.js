@@ -89,33 +89,33 @@ function Login({ setIsLoggedIn }) {
   };
   // 정재승 개발 엔드라인----------------------------------
   //소셜 로그인 회원가입
-  const SocialRegister =() =>{
+  const SocialRegister = () => {
     const userData = {
-        user_email: email,
-        user_username: username,
-        user_pw: "Asdqwe12!",
-        user_pw2: "Asdqwe12!",
-      };
-      fetch("http://localhost:8080/signin", {
-        method: "post",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      })
-        .then((res) => res.json())
-        .then((json) => {
-          if (json.isSuccess === "True") {
-            //회원가입 성공
-            alert("회원가입이 완료되었습니다!");
-            localStorage.setItem("email", email);
-            localStorage.setItem("pw", pw);
-            localStorage.setItem("username", username);
-            setIsLoggedIn(true);
-          } else {
-            setErrorCode(json.isSuccess);
-          }
-        });
+      user_email: email,
+      user_username: username,
+      user_pw: "Asdqwe12!",
+      user_pw2: "Asdqwe12!",
+    };
+    fetch("http://localhost:8080/signin", {
+      method: "post",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.isSuccess === "True") {
+          //회원가입 성공
+          alert("회원가입이 완료되었습니다!");
+          localStorage.setItem("email", email);
+          localStorage.setItem("pw", "Asdqwe12!");
+          localStorage.setItem("username", username);
+          setIsLoggedIn(true);
+        } else {
+          setErrorCode(json.isSuccess);
+        }
+      });
   };
 
   return (
@@ -126,90 +126,99 @@ function Login({ setIsLoggedIn }) {
           style={{ display: "block", position: "initial" }}
         >
           <Modal.Dialog>
-            {socialsignin ?             <>
-            <Modal.Header>
-              <Modal.Title>{loginSignin ? "로그인" : "회원가입"}</Modal.Title>
-            </Modal.Header>
+            {socialsignin ? (
+              <>
+                <Modal.Header>
+                  <Modal.Title>
+                    {loginSignin ? "로그인" : "회원가입"}
+                  </Modal.Title>
+                </Modal.Header>
 
-            <Modal.Body>
-              <Form.Label htmlFor="inputPassword5">Email</Form.Label>
-              <Form.Control
-                type="id"
-                id="inputid5"
-                aria-describedby="idHelpBlock"
-                value={email}
-                onChange={onEmailChange}
-              />
+                <Modal.Body>
+                  <Form.Label htmlFor="inputPassword5">Email</Form.Label>
+                  <Form.Control
+                    type="id"
+                    id="inputid5"
+                    aria-describedby="idHelpBlock"
+                    value={email}
+                    onChange={onEmailChange}
+                  />
 
-              <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-              <Form.Control
-                type="password"
-                id="inputPassword5"
-                aria-describedby="passwordHelpBlock"
-                value={pw}
-                onChange={onPwChange}
-              />
-              <Form.Text id="passwordHelpBlock" muted></Form.Text>
-              {!loginSignin && (
-                <>
-                  <Form.Label htmlFor="inputPassword5">
-                    Password Confirm
-                  </Form.Label>
+                  <Form.Label htmlFor="inputPassword5">Password</Form.Label>
                   <Form.Control
                     type="password"
                     id="inputPassword5"
                     aria-describedby="passwordHelpBlock"
-                    value={pw2}
-                    onChange={onPw2Change}
+                    value={pw}
+                    onChange={onPwChange}
                   />
                   <Form.Text id="passwordHelpBlock" muted></Form.Text>
-                  <Form.Label htmlFor="inputPassword5">Username</Form.Label>
-                  <Form.Control
-                    type="id"
-                    id="inputid5"
-                    aria-describedby="idHelpBlock"
-                    value={username}
-                    onChange={onUsernameChange}
-                    maxLength={10}
-                  />
-                </>
-              )}
-              <div className={styles.paragraphZone}>
-                <p onClick={onToggleClick}>
-                  {loginSignin ? "아이디가 없으신가요?" : "로그인 하실건가요?"}
-                </p>
-                <p>{errorCode}</p>
-              </div>
-            </Modal.Body>
+                  {!loginSignin && (
+                    <>
+                      <Form.Label htmlFor="inputPassword5">
+                        Password Confirm
+                      </Form.Label>
+                      <Form.Control
+                        type="password"
+                        id="inputPassword5"
+                        aria-describedby="passwordHelpBlock"
+                        value={pw2}
+                        onChange={onPw2Change}
+                      />
+                      <Form.Text id="passwordHelpBlock" muted></Form.Text>
+                      <Form.Label htmlFor="inputPassword5">Username</Form.Label>
+                      <Form.Control
+                        type="id"
+                        id="inputid5"
+                        aria-describedby="idHelpBlock"
+                        value={username}
+                        onChange={onUsernameChange}
+                        maxLength={10}
+                      />
+                    </>
+                  )}
+                  <div className={styles.paragraphZone}>
+                    <p onClick={onToggleClick}>
+                      {loginSignin
+                        ? "아이디가 없으신가요?"
+                        : "로그인 하실건가요?"}
+                    </p>
+                    <p>{errorCode}</p>
+                  </div>
+                </Modal.Body>
 
-            <Modal.Footer>
-            
-              <Login_Api setSocialsignin = {setSocialsignin} setEmail = {setEmail}/> 
-              {loginSignin ? (
-                <Button variant="primary" onClick={onLoginBtnClick}>
-                  로그인
-                </Button>
-              ) : (
-                <Button variant="primary" onClick={onSigninBtnClick}>
-                  회원가입
-                </Button>
-              )}
-            </Modal.Footer>
-            </>: <>
-            <Form.Text id="passwordHelpBlock" muted></Form.Text>
-                  <Form.Label htmlFor="inputPassword5">Username</Form.Label>
-                  <Form.Control
-                    type="id"
-                    id="inputid5"
-                    aria-describedby="idHelpBlock"
-                    value={username}
-                    onChange={onUsernameChange}
-                    maxLength={10}
+                <Modal.Footer>
+                  <Login_Api
+                    setSocialsignin={setSocialsignin}
+                    setEmail={setEmail}
+                    setIsLoggedIn={setIsLoggedIn}
                   />
-            <Button onClick={SocialRegister}>회원가입</Button>
-            </>}
-
-            
+                  {loginSignin ? (
+                    <Button variant="primary" onClick={onLoginBtnClick}>
+                      로그인
+                    </Button>
+                  ) : (
+                    <Button variant="primary" onClick={onSigninBtnClick}>
+                      회원가입
+                    </Button>
+                  )}
+                </Modal.Footer>
+              </>
+            ) : (
+              <>
+                <Form.Text id="passwordHelpBlock" muted></Form.Text>
+                <Form.Label htmlFor="inputPassword5">Username</Form.Label>
+                <Form.Control
+                  type="id"
+                  id="inputid5"
+                  aria-describedby="idHelpBlock"
+                  value={username}
+                  onChange={onUsernameChange}
+                  maxLength={10}
+                />
+                <Button onClick={SocialRegister}>회원가입</Button>
+              </>
+            )}
           </Modal.Dialog>
         </div>
       </div>
