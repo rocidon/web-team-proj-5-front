@@ -206,17 +206,27 @@ function Login({ setIsLoggedIn }) {
               </>
             ) : (
               <>
-                <Form.Text id="passwordHelpBlock" muted></Form.Text>
-                <Form.Label htmlFor="inputPassword5">Username</Form.Label>
-                <Form.Control
-                  type="id"
-                  id="inputid5"
-                  aria-describedby="idHelpBlock"
-                  value={username}
-                  onChange={onUsernameChange}
-                  maxLength={10}
-                />
-                <Button onClick={SocialRegister}>회원가입</Button>
+                <Modal.Header>
+                  <Modal.Title>네이버 로그인 회원가입</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form.Text id="passwordHelpBlock" muted></Form.Text>
+                  <Form.Label htmlFor="inputPassword5">Username</Form.Label>
+                  <Form.Control
+                    type="id"
+                    id="inputid5"
+                    aria-describedby="idHelpBlock"
+                    value={username}
+                    onChange={onUsernameChange}
+                    maxLength={10}
+                  />
+                </Modal.Body>
+
+                <Modal.Footer>
+                  <Button variant="success" onClick={SocialRegister}>
+                    회원가입
+                  </Button>
+                </Modal.Footer>
               </>
             )}
           </Modal.Dialog>
