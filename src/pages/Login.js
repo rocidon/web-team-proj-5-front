@@ -10,6 +10,7 @@ function Login({ setIsLoggedIn }) {
   const [pw2, setPw2] = useState("");
   const [username, setUsername] = useState("");
   const [errorCode, setErrorCode] = useState("");
+  const [socialsignin, setSocialsignin] = useState(1);
 
   const onEmailChange = ({ target: { value } }) => {
     setEmail(value);
@@ -87,6 +88,36 @@ function Login({ setIsLoggedIn }) {
       });
   };
   // 정재승 개발 엔드라인----------------------------------
+  //소셜 로그인 회원가입
+  const SocialRegister =() =>{
+    const userData = {
+        user_email: email,
+        user_username: username,
+        user_pw: "Asdqwe12!",
+        user_pw2: "Asdqwe12!",
+      };
+      fetch("http://localhost:8080/signin", {
+        method: "post",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.isSuccess === "True") {
+            //회원가입 성공
+            alert("회원가입이 완료되었습니다!");
+            localStorage.setItem("email", email);
+            localStorage.setItem("pw", pw);
+            localStorage.setItem("username", username);
+            setIsLoggedIn(true);
+          } else {
+            setErrorCode(json.isSuccess);
+          }
+        });
+  };
+
   return (
     <>
       <div>
@@ -95,6 +126,7 @@ function Login({ setIsLoggedIn }) {
           style={{ display: "block", position: "initial" }}
         >
           <Modal.Dialog>
+            {socialsignin ?             <>
             <Modal.Header>
               <Modal.Title>{loginSignin ? "로그인" : "회원가입"}</Modal.Title>
             </Modal.Header>
@@ -151,7 +183,8 @@ function Login({ setIsLoggedIn }) {
             </Modal.Body>
 
             <Modal.Footer>
-              <Login_Api></Login_Api>
+            
+              <Login_Api setSocialsignin = {setSocialsignin} setEmail = {setEmail}/> 
               {loginSignin ? (
                 <Button variant="primary" onClick={onLoginBtnClick}>
                   로그인
@@ -162,6 +195,21 @@ function Login({ setIsLoggedIn }) {
                 </Button>
               )}
             </Modal.Footer>
+            </>: <>
+            <Form.Text id="passwordHelpBlock" muted></Form.Text>
+                  <Form.Label htmlFor="inputPassword5">Username</Form.Label>
+                  <Form.Control
+                    type="id"
+                    id="inputid5"
+                    aria-describedby="idHelpBlock"
+                    value={username}
+                    onChange={onUsernameChange}
+                    maxLength={10}
+                  />
+            <Button onClick={SocialRegister}>회원가입</Button>
+            </>}
+
+            
           </Modal.Dialog>
         </div>
       </div>

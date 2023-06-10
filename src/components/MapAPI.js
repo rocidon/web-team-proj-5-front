@@ -1,13 +1,17 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 
-function MapApi() {
-  const mapElement = useRef(null);
-
-
+const MapApi = () => {
   useEffect(() => {
-    const { naver } = window;
-    if (!mapElement.current || !naver) return;
+    const script = document.createElement('script');
+    script.src = 'https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=adowujqfbe&submodules=geocoder';
+    script.async = true;
+    script.onload = initMap;
+    document.head.appendChild(script);
+  }, []);
 
+  const initMap = () => {
+    const { naver } = window;
+    const mapElement = document.getElementById('map');
     const location = new naver.maps.LatLng(37.2772, 127.1341);
     const mapOptions = {
       center: location,
@@ -17,16 +21,14 @@ function MapApi() {
         position: naver.maps.Position.TOP_RIGHT,
       },
     };
-    const map = new naver.maps.Map(mapElement.current, mapOptions);
+    const map = new naver.maps.Map(mapElement, mapOptions);
     new naver.maps.Marker({
       position: location,
       map,
     });
-  }, []);
+  };
 
-
-  return <div ref={mapElement} style={{ minHeight: '400px' }} />;
-}
-
+  return <div id="map" style={{ minHeight: '400px' }} />;
+};
 
 export default MapApi;

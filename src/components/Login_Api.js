@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import axios from 'axios'
 
-const Login_Api = () => {
+const Login_Api = ({setSocialsignin, setEmail}) => {// 소셜 로그인이랑 이메일 값 넘기기
       
   
 	const { naver } = window
@@ -23,20 +23,13 @@ const Login_Api = () => {
 				const userid = naverLogin.user.getEmail() //네이버로부터 사용자의 이메일을 받아옴
 				localStorage.setItem('email', userid)
 				count = await sendDataToBackend(userid) //이메일과 일치하는 계정정보여부를 판별
+				setSocialsignin(count); //count값을 State값에 할당하여 변경을 실시함.
+				setEmail(userid); //이메일도 넘김
 				//console.log(count)
 			}
 		})     
 	}
    
-	//     const userAccessToken = () => {
-	// 	    window.location.href.includes('access_token') && getToken()
-	// }
-        
-    //   	const getToken = () => {
-	// 	const token = window.location.href.split('=')[1].split('&')[0]
-	// 	localStorage.setItem('access_token', token)
-	// 	console.log(token);
-	// }
 
 	const sendDataToBackend = async (data) => { //네이버로 부터 전달 받은 데이터 서버로 전송
 		try{
