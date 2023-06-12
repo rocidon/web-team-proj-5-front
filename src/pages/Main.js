@@ -56,8 +56,6 @@ function Main({ datas, isLoading, setIsLoading, setClickedPost, getDatas }) {
           (isClicked.isClicked) ?
             (<div className="submitform">
               <form onSubmit={onSubmit}>
-                <h4>게시글 작성</h4>
-                <hr />
                 <h4 style={{ fontWeight: "bolder", fontSize: "16px" }}>제목</h4>
                 <InputGroup size="sm" className="mb-3">
                   <Form.Control
