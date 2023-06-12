@@ -1,4 +1,4 @@
-import Bulletin from "../components/Bulletin";
+import Posts from "../components/Posts";
 import { useState, useEffect } from "react";
 
 function Popular({ setClickedPost }) {
@@ -26,7 +26,7 @@ function Popular({ setClickedPost }) {
       ) : (
         datas.map((data) => {
           return (
-            <Bulletin
+            <Posts
               key={data.uuid}
               data={data}
               setClickedPost={setClickedPost}
