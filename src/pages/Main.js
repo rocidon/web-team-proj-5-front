@@ -1,8 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
 import Posts from "../components/Posts";
+import { Modal, Button } from "react-bootstrap";
+import { usdDispatch, useDispatch, useSelector } from "react-redux";
+import { clickedFunction } from "./../store.js"
 
 function Main({ datas, isLoading, setIsLoading, setClickedPost, getDatas }) {
+  let isClicked = useSelector((state) => { return state })
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
@@ -47,25 +51,33 @@ function Main({ datas, isLoading, setIsLoading, setClickedPost, getDatas }) {
   return (
     <div>
       <div>
-        <form onSubmit={onSubmit}>
-          <input
-            type="text"
-            maxLength={20}
-            required
-            value={title}
-            onChange={onTitleChange}
-            placeholder="제목입력부분"
-          />
-          <input
-            type="text"
-            maxLength={200}
-            required
-            value={text}
-            onChange={onTextChange}
-            placeholder="글내용 입력부분"
-          />
-          <input type="submit" value="작성" />
-        </form>
+        {
+          (isClicked.isClicked) ?
+            (
+              <form onSubmit={onSubmit}>
+                <div>제목</div>
+                <input
+                  type="text"
+                  maxLength={20}
+                  required
+                  value={title}
+                  onChange={onTitleChange}
+                  placeholder="제목입력부분"
+                />
+                <div>내용작성</div>
+                <textarea
+                  type="text"
+                  maxLength={200}
+                  required
+                  value={text}
+                  onChange={onTextChange}
+                  placeholder="글내용 입력부분">
+                </textarea>
+                <input type="submit" value="작성" />
+              </form>
+            ) : (<div></div>)
+
+        }
       </div>
       {isLoading ? (
         <span>로딩중</span>

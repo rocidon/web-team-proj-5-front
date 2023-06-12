@@ -8,8 +8,12 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import Popular from "./pages/Popular";
+import { usdDispatch, useDispatch, useSelector } from "react-redux";
+import { clickedFunction } from "./store.js"
 
 function App() {
+  let isClicked = useSelector((state) => { return state })
+  let dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,7 +75,7 @@ function App() {
                   navigate("/main");
                 }}
               >
-                로고
+                <img src="./knuLogo.jpg" alt="logo" style={{ objectFit: "scale-down" }} />
               </Navbar.Brand>
               <Nav className="me-auto">
                 <Nav.Link
@@ -81,6 +85,16 @@ function App() {
                 >
                   검색
                 </Nav.Link>
+                <Nav.Link
+                  onClick={() => {
+                    navigate("/main");
+                    dispatch(clickedFunction())
+                    console.log(isClicked.isClicked)
+                  }}
+                >
+                  글 작성
+                </Nav.Link>
+
                 <Nav.Link
                   onClick={() => {
                     navigate("/my");
