@@ -3,6 +3,7 @@ import "../css/Bulletin.css";
 import convertTime from "../time";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Button } from "react-bootstrap";
 
 function Bulletin({
   data,
@@ -33,7 +34,7 @@ function Bulletin({
         .catch(function (err) {
           console.log(err);
         });
-    } catch {}
+    } catch { }
   };
   const onClick = async () => {
     await deletePost();
@@ -67,7 +68,7 @@ function Bulletin({
           console.log(res.data);
           alert("수정이 완료되었습니다");
         });
-    } catch {}
+    } catch { }
   };
 
   const onUpdateComplete = async () => {
@@ -116,7 +117,7 @@ function Bulletin({
         .catch(function (err) {
           console.log(err);
         });
-    } catch {}
+    } catch { }
   };
 
   useEffect(() => {
@@ -142,7 +143,7 @@ function Bulletin({
           .catch(function (err) {
             console.log(err);
           });
-      } catch {}
+      } catch { }
       await getLikeCount();
     } else {
       // 좋아요 안누른 상태에서 버튼 클릭
@@ -161,7 +162,7 @@ function Bulletin({
           .catch(function (err) {
             console.log(err);
           });
-      } catch {}
+      } catch { }
       await getLikeCount();
     }
   };
@@ -175,11 +176,11 @@ function Bulletin({
         </span>
         {isPostMine && (
           <>
-            <button onClick={onClick}>삭제하기</button>
-            <button onClick={onUpdateToggle}>
-              {isUpdating ? "취소하기" : "수정하기"}
-            </button>
-            {isUpdating && <button onClick={onUpdateComplete}>수정완료</button>}
+            <Button variant="outline-danger" size="sm" onClick={onClick} >삭제</Button>{' '}
+            <Button variant="outline-secondary" size="sm" onClick={onUpdateToggle}>
+              {isUpdating ? "취소" : "수정"}
+            </Button>
+            {isUpdating && <Button variant="outline-primary" size="sm" onClick={onUpdateComplete}>완료</Button>}
           </>
         )}
       </div>

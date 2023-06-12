@@ -105,11 +105,10 @@ function Detail({ clickedPost, setIsLoading, getDatas }) {
             placeholder="댓글입력하는곳"
             value={text}
           />
-          <input type="submit" value="댓글작성" />
+
           <br />
-          <Button variant="outline-primary">등록</Button> <br />
-          <Button variant="outline-danger">삭제</Button>{" "}
-          <Button variant="outline-secondary">수정</Button>{" "}
+          <Button size="sm" variant="outline-primary" type="submit" >등록</Button> <br />
+
         </form>
       </div>
       <div>
