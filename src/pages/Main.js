@@ -1,9 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 import Posts from "../components/Posts";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, InputGroup, Form } from "react-bootstrap";
 import { usdDispatch, useDispatch, useSelector } from "react-redux";
 import { clickedFunction } from "./../store.js"
+import "../css/Main.css";
 
 function Main({ datas, isLoading, setIsLoading, setClickedPost, getDatas }) {
   let isClicked = useSelector((state) => { return state })
@@ -53,29 +54,35 @@ function Main({ datas, isLoading, setIsLoading, setClickedPost, getDatas }) {
       <div>
         {
           (isClicked.isClicked) ?
-            (
+            (<div className="submitform">
               <form onSubmit={onSubmit}>
-                <div>제목</div>
-                <input
-                  type="text"
-                  maxLength={20}
-                  required
-                  value={title}
-                  onChange={onTitleChange}
-                  placeholder="제목입력부분"
-                />
-                <div>내용작성</div>
+                <h4>게시글 작성</h4>
+                <hr />
+                <h4 style={{ fontWeight: "bolder", fontSize: "16px" }}>제목</h4>
+                <InputGroup size="sm" className="mb-3">
+                  <Form.Control
+                    aria-label="Small"
+                    type="text"
+                    maxLength={100}
+                    required
+                    value={title}
+                    onChange={onTitleChange}
+                    placeholder="제목쓰는곳"
+
+                  />
+                </InputGroup>
+                <h4 style={{ fontWeight: "bolder", fontSize: "16px" }}>내용</h4>
                 <textarea
                   type="text"
                   maxLength={200}
                   required
                   value={text}
                   onChange={onTextChange}
-                  placeholder="글내용 입력부분">
+                  placeholder="글내용 입력하는곳">
                 </textarea>
-                <input type="submit" value="작성" />
+                <Button variant="primary" size="sm" type="submit">저장</Button>
               </form>
-            ) : (<div></div>)
+            </div>) : (<div></div>)
 
         }
       </div>
